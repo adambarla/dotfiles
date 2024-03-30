@@ -4,7 +4,7 @@
 firstLine=$(head -n 1 $1)
 
 # Check if the first line follows the Conventional Commits format
-if ! echo "$firstLine" | grep -Eq "^(feat|fix|docs|style|refactor|perf|test|chore)(\(\w+\))?:\s.*"; then
+if ! echo "$firstLine" | grep -Eq "^(feat|fix|docs|style|refactor|perf|test|chore)(\(\w+\))?:\s\w.{0,49}"; then
     echo "Commit message does not follow the Conventional Commits standard."
     exit 1
 fi
