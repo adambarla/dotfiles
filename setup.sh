@@ -21,6 +21,7 @@ DOTFILES=(
 	.zshrc
 	.gitconfig
 	.config/nvim/init.vim
+	.tmux.conf
 )
 
 alias dotfiles='/usr/bin/git --git-dir=$DOTFILES_DIR --work-tree=$HOME'
