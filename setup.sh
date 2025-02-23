@@ -11,6 +11,7 @@ DOTFILES=(
 	.zshrc
 	.gitconfig
 	.config/nvim/init.vim
+	.oh-my-zsh
 )
 
 alias dotfiles='/usr/bin/git --git-dir=$DOTFILES_DIR --work-tree=$HOME'
