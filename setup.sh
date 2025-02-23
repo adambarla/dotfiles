@@ -7,11 +7,12 @@ if [ ! -d "$DOTFILES_DIR" ]; then
 	exit 1
 fi
 
+git -C "$DOTFILES_DIR" submodule update --init --recursive
+
 DOTFILES=(
 	.zshrc
 	.gitconfig
 	.config/nvim/init.vim
-	.oh-my-zsh
 )
 
 alias dotfiles='/usr/bin/git --git-dir=$DOTFILES_DIR --work-tree=$HOME'
