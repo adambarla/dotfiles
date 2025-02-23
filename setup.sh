@@ -19,8 +19,6 @@ fi
 
 DOTFILES=(
 	.zshrc
-	.docker/init-zsh.sh
-	.cargo/env
 	.gitconfig
 	.config/nvim/init.vim
 )
