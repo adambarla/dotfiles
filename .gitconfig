@@ -1,0 +1,17 @@
+[core]
+	autocrlf = input
+	editor = nvim
+[pull]
+	rebase = merges
+[user]
+	name = Adam Barla
+	email = adam.barla@epfl.ch
+[http]
+	postBuffer = 524288000
+[credential]
+	helper = store
+[alias]
+	st = status
+	ci = commit
+[init]
+	templateDir = /Users/adam/.git-templates
