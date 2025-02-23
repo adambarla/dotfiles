@@ -9,8 +9,18 @@ fi
 
 git -C "$DOTFILES_DIR" submodule update --init --recursive
 
+ZSH="$DOTFILES_DIR/.oh-my-zsh"
+ZSH_CUSTOM="$ZSH/custom"
+#zsh-vi-mode
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-vi-mode" ]; then
+    echo "Installing zsh-vi-mode plugin..."
+    git clone https://github.com/jeffreytse/zsh-vi-mode.git "$ZSH_CUSTOM/plugins/zsh-vi-mode"
+fi
+
 DOTFILES=(
 	.zshrc
+	.docker/init-zsh.sh
+	.cargo/env
 	.gitconfig
 	.config/nvim/init.vim
 )
