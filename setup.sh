@@ -19,6 +19,8 @@ fi
 
 DOTFILES=(
 	.zshrc
+	.vimrc
+	.ideavimrc
 	.gitconfig
 	.config/nvim/init.vim
 	.tmux.conf

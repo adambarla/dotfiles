@@ -8,7 +8,7 @@ set tabstop=4
 set display+=lastline
 set linebreak
 set scrolloff=1
-set sidescrolloff=5
+set sidescrolloff=0
 syntax enable
 set wrap
 
