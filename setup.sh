@@ -25,6 +25,8 @@ fi
 DOTFILES=(
 	.zshrc
 	.vimrc
+	.zshenv
+	.zprofile
 	.ideavimrc
 	.gitconfig
 	.config/nvim/init.vim
