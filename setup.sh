@@ -9,12 +9,17 @@ fi
 
 git -C "$DOTFILES_DIR" submodule update --init --recursive
 
-ZSH="$DOTFILES_DIR/.oh-my-zsh"
-ZSH_CUSTOM="$ZSH/custom"
+ZSH="$HOME/.oh-my-zsh"
+
+if [ ! -d "$ZSH/plugins" ]; then
+    echo "err: $ZSH/plugins does not exist"
+    exit 1
+fi
+
 #zsh-vi-mode
-if [ ! -d "$ZSH_CUSTOM/plugins/zsh-vi-mode" ]; then
+if [ ! -d "$ZSH/plugins/zsh-vi-mode" ]; then
     echo "Installing zsh-vi-mode plugin..."
-    git clone https://github.com/jeffreytse/zsh-vi-mode.git "$ZSH_CUSTOM/plugins/zsh-vi-mode"
+    git clone https://github.com/jeffreytse/zsh-vi-mode.git "$ZSH/plugins/zsh-vi-mode"
 fi
 
 DOTFILES=(
