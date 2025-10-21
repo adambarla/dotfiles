@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -9,7 +16,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
-ZSH_THEME="gnzh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="gnzh"
 # ZSH_THEME="minimal"
 # ZSH_THEME="robbyrussell"
 
@@ -73,9 +81,9 @@ ZSH_THEME="gnzh"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages colorize pip python brew)
+plugins=(git colored-man-pages colorize pip python brew docker vi-mode zsh-syntax-highlighting you-should-use)
 # export FUNCNEST=500
-plugins+=(zsh-vi-mode)
+# plugins+=(zsh-vi-mode)
 
 autoload -Uz compinit
 compinit
@@ -136,3 +144,12 @@ unset __conda_setup
 
 export SSH_AUTH_SOCK=$(ssh-agent -s | grep -oE '/tmp/ssh-[^ ]*')
 ssh-add ~/.ssh/id_ed25519_dlab 2>/dev/null
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# bun completions
+[ -s "/Users/adam/.bun/_bun" ] && source "/Users/adam/.bun/_bun"
+export PATH="$HOME/.local/bin:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
