@@ -16,10 +16,31 @@ if [ ! -d "$ZSH/plugins" ]; then
     exit 1
 fi
 
-#zsh-vi-mode
-if [ ! -d "$ZSH/plugins/zsh-vi-mode" ]; then
+# Install external plugins and themes
+echo "Installing external plugins and themes..."
+
+# powerlevel10k theme
+if [ ! -d "$ZSH/custom/themes/powerlevel10k" ]; then
+    echo "Installing powerlevel10k theme..."
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH/custom/themes/powerlevel10k"
+fi
+
+# zsh-syntax-highlighting plugin
+if [ ! -d "$ZSH/custom/plugins/zsh-syntax-highlighting" ]; then
+    echo "Installing zsh-syntax-highlighting plugin..."
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH/custom/plugins/zsh-syntax-highlighting"
+fi
+
+# you-should-use plugin
+if [ ! -d "$ZSH/custom/plugins/you-should-use" ]; then
+    echo "Installing you-should-use plugin..."
+    git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "$ZSH/custom/plugins/you-should-use"
+fi
+
+# zsh-vi-mode plugin
+if [ ! -d "$ZSH/custom/plugins/zsh-vi-mode" ]; then
     echo "Installing zsh-vi-mode plugin..."
-    git clone https://github.com/jeffreytse/zsh-vi-mode.git "$ZSH/plugins/zsh-vi-mode"
+    git clone https://github.com/jeffreytse/zsh-vi-mode.git "$ZSH/custom/plugins/zsh-vi-mode"
 fi
 
 DOTFILES=(

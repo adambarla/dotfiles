@@ -81,7 +81,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages colorize pip python brew docker vi-mode zsh-syntax-highlighting you-should-use)
+plugins=(git colored-man-pages colorize pip python brew docker zsh-vi-mode zsh-syntax-highlighting you-should-use)
 # export FUNCNEST=500
 # plugins+=(zsh-vi-mode)
 
