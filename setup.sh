@@ -9,7 +9,7 @@ fi
 
 git -C "$DOTFILES_DIR" submodule update --init --recursive
 
-ZSH="$HOME/.oh-my-zsh"
+ZSH="$HOME/dotfiles/.oh-my-zsh"
 
 if [ ! -d "$ZSH/plugins" ]; then
     echo "err: $ZSH/plugins does not exist"
@@ -44,6 +44,7 @@ if [ ! -d "$ZSH/custom/plugins/zsh-vi-mode" ]; then
 fi
 
 DOTFILES=(
+	.oh-my-zsh
 	.zshrc
 	.vimrc
 	.zshenv
