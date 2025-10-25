@@ -142,8 +142,11 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-export SSH_AUTH_SOCK=$(ssh-agent -s | grep -oE '/tmp/ssh-[^ ]*')
-ssh-add ~/.ssh/id_ed25519_dlab 2>/dev/null
+# SSH Agent setup - only start if not already running
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)" > /dev/null
+    ssh-add ~/.ssh/id_ed25519_dlab 2>/dev/null
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
