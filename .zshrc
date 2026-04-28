@@ -81,7 +81,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages colorize pip python brew docker zsh-vi-mode zsh-syntax-highlighting you-should-use)
+plugins=(git colored-man-pages colorize pip python brew docker zsh-vi-mode zsh-syntax-highlighting zsh-autosuggestions you-should-use kubectl kubectx aws)
 # export FUNCNEST=500
 # plugins+=(zsh-vi-mode)
 
@@ -117,6 +117,11 @@ source "$ZSH/oh-my-zsh.sh"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Python virtual environment activation
+alias activate="source .venv/bin/activate"
+alias rm="rm -i"
+
 
 #gromacs
 export PATH=/usr/local/gromacs/bin:"$PATH"
@@ -156,3 +161,8 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+bindkey -M vicmd '?' history-incremental-search-backward
+
+# color of autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=250'
