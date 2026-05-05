@@ -43,6 +43,11 @@ if [ ! -d "$ZSH/custom/plugins/zsh-vi-mode" ]; then
     git clone https://github.com/jeffreytse/zsh-vi-mode.git "$ZSH/custom/plugins/zsh-vi-mode"
 fi
 
+if [ ! -d  "$ZSH/custom//plugins/zsh-autosuggestions" ]; then
+    echo "Installing zsh-autosuggestions plugin..."
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH/custom/plugins/zsh-autosuggestions"
+fi
+
 DOTFILES=(
 	.oh-my-zsh
 	.zshrc
