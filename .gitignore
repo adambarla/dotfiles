@@ -1,0 +1,32 @@
+.DS_Store
+
+# Local-only duplicate paths.
+/himalaya/
+
+# App caches and generated state.
+/.config/configstore/
+/.config/github-copilot/
+/.config/uv/
+/.config/wireshark/recent*
+/.config/fontforge/FontsOpenAtLastQuit
+/.config/fontforge/plugin/
+/.config/fontforge/prefs
+
+# Large/editor-generated state. Keep settings/keymaps visible.
+/.config/zed/
+
+# Machine-specific terminal app state.
+/.config/iterm2/AppSupport
+
+# Nested/vendor-managed repos.
+/.oh-my-zsh/
+
+# Low-value or machine-specific app state.
+/.config/btop/
+/.config/fish/
+/.config/gh/
+/.config/glab-cli/
+/.config/htop/
+/.config/jgit/
+/.config/karabiner/
+/.config/neofetch/
