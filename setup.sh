@@ -17,10 +17,20 @@ REQUIRED_TOOLS=(
 )
 
 missing_tools=()
+missing_formulas=()
+
+brew_formula() {
+    case "$1" in
+        nvim) echo "neovim" ;;
+        rg) echo "ripgrep" ;;
+        *) echo "$1" ;;
+    esac
+}
 
 for tool in "${REQUIRED_TOOLS[@]}"; do
     if ! command -v "$tool" >/dev/null 2>&1; then
         missing_tools+=("$tool")
+        missing_formulas+=("$(brew_formula "$tool")")
     fi
 done
 
@@ -28,14 +38,14 @@ if [ "${#missing_tools[@]}" -gt 0 ]; then
     echo "Missing tools: ${missing_tools[*]}"
     echo "Install them, then rerun setup.sh."
     if command -v brew >/dev/null 2>&1; then
-        echo "Homebrew suggestion: brew install ${missing_tools[*]}"
+        echo "Homebrew suggestion: brew install ${missing_formulas[*]}"
     fi
     exit 1
 fi
 
 git -C "$DOTFILES_DIR" submodule update --init --recursive
 
-ZSH="$HOME/dotfiles/.oh-my-zsh"
+ZSH="$DOTFILES_DIR/.oh-my-zsh"
 
 if [ ! -d "$ZSH/plugins" ]; then
     echo "err: $ZSH/plugins does not exist"
