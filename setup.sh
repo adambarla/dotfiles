@@ -8,6 +8,31 @@ if [ ! -d "$DOTFILES_DIR" ]; then
     exit 1
 fi
 
+REQUIRED_TOOLS=(
+    git
+    nvim
+    tmux
+    himalaya
+    rg
+)
+
+missing_tools=()
+
+for tool in "${REQUIRED_TOOLS[@]}"; do
+    if ! command -v "$tool" >/dev/null 2>&1; then
+        missing_tools+=("$tool")
+    fi
+done
+
+if [ "${#missing_tools[@]}" -gt 0 ]; then
+    echo "Missing tools: ${missing_tools[*]}"
+    echo "Install them, then rerun setup.sh."
+    if command -v brew >/dev/null 2>&1; then
+        echo "Homebrew suggestion: brew install ${missing_tools[*]}"
+    fi
+    exit 1
+fi
+
 git -C "$DOTFILES_DIR" submodule update --init --recursive
 
 ZSH="$HOME/dotfiles/.oh-my-zsh"
