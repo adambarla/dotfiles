@@ -1,0 +1,23 @@
+[accounts.icloud]
+default = true
+email = "adam.barla@icloud.com"
+display-name = "Adam Barla"
+downloads-dir = "/Users/adam/Downloads"
+folder.aliases.inbox = "INBOX"
+folder.aliases.sent = "Sent Messages"
+folder.aliases.drafts = "Drafts"
+folder.aliases.trash = "Deleted Messages"
+backend.type = "imap"
+backend.host = "imap.mail.me.com"
+backend.port = 993
+backend.login = "adam.barla@icloud.com"
+backend.encryption.type = "tls"
+backend.auth.type = "password"
+backend.auth.command = "security find-generic-password -a 'icloud' -s 'himalaya-icloud-imap' -w"
+message.send.backend.type = "smtp"
+message.send.backend.host = "smtp.mail.me.com"
+message.send.backend.port = 587
+message.send.backend.login = "adam.barla@icloud.com"
+message.send.backend.encryption.type = "start-tls"
+message.send.backend.auth.type = "password"
+message.send.backend.auth.command = "security find-generic-password -a 'icloud' -s 'himalaya-icloud-smtp' -w"

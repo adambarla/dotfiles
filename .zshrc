@@ -158,6 +158,7 @@ fi
 # bun completions
 [ -s "/Users/adam/.bun/_bun" ] && source "/Users/adam/.bun/_bun"
 export PATH="$HOME/.local/bin:$PATH"
+export HIMALAYA_CONFIG="$HOME/.config/himalaya/config.toml"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
