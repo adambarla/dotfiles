@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal macOS dotfiles.
+Personal dotfiles for Unix-like systems.
 
 ## Setup
 
@@ -26,11 +26,13 @@ himalaya
 rg
 ```
 
-With Homebrew:
+On macOS with Homebrew:
 
 ```sh
 brew install git neovim tmux himalaya ripgrep
 ```
+
+On Linux, install the equivalent packages with your system package manager. Package names vary, but `neovim`, `tmux`, `git`, and `ripgrep` are common. Install Himalaya from your distro package manager if available, or from the upstream project.
 
 ## Linked Paths
 
@@ -59,12 +61,16 @@ Himalaya uses the tracked config at:
 ~/.config/himalaya/config.toml
 ```
 
-Passwords are not tracked. Add the required iCloud app passwords to macOS Keychain:
+Passwords are not tracked. The current config reads passwords from commands in `config.toml`.
+
+On macOS, add the required iCloud app passwords to Keychain:
 
 ```sh
 security add-generic-password -a icloud -s himalaya-icloud-imap -w
 security add-generic-password -a icloud -s himalaya-icloud-smtp -w
 ```
+
+On Linux, update `~/.config/himalaya/config.toml` so the `backend.auth.command` and `message.send.backend.auth.command` values read from your preferred secret manager, such as `pass`, `secret-tool`, or `gopass`.
 
 Then verify:
 
