@@ -1,10 +1,11 @@
 #!/bin/bash
+set -euo pipefail
 
-DOTFILES_DIR="$HOME/dotfiles"
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 
 if [ ! -d "$DOTFILES_DIR" ]; then
-	echo "err: missing repo at $DOTFILES_DIR"
-	exit 1
+    echo "err: missing repo at $DOTFILES_DIR"
+    exit 1
 fi
 
 git -C "$DOTFILES_DIR" submodule update --init --recursive
@@ -43,39 +44,55 @@ if [ ! -d "$ZSH/custom/plugins/zsh-vi-mode" ]; then
     git clone https://github.com/jeffreytse/zsh-vi-mode.git "$ZSH/custom/plugins/zsh-vi-mode"
 fi
 
-if [ ! -d  "$ZSH/custom//plugins/zsh-autosuggestions" ]; then
+if [ ! -d "$ZSH/custom/plugins/zsh-autosuggestions" ]; then
     echo "Installing zsh-autosuggestions plugin..."
     git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH/custom/plugins/zsh-autosuggestions"
 fi
 
-DOTFILES=(
-	.oh-my-zsh
-	.zshrc
-	.vimrc
-	.zshenv
-	.zprofile
-	.ideavimrc
-	.gitconfig
-	.config/nvim/init.vim
-	.tmux.conf
+LINK_TARGETS=(
+    ".config:.config"
+    ".gitconfig:.gitconfig"
+    "git-templates:.git-templates"
+    ".ideavimrc:.ideavimrc"
+    ".oh-my-zsh:.oh-my-zsh"
+    ".tmux.conf:.tmux.conf"
+    ".vimrc:.vimrc"
+    ".zprofile:.zprofile"
+    ".zshenv:.zshenv"
+    ".zshrc:.zshrc"
 )
 
-alias dotfiles='/usr/bin/git --git-dir=$DOTFILES_DIR --work-tree=$HOME'
+git -C "$DOTFILES_DIR" config --local status.showUntrackedFiles no
 
-dotfiles checkout
-dotfiles config --local statues.showUntrackedFiles no
+link_file() {
+    local src="$1"
+    local dest="$2"
+    local backup
 
-for file in "${DOTFILES[@]}"; do
-    SRC="$DOTFILES_DIR/$file"
-    DEST="$HOME/$file"
-
-	# backup existing
-    if [ -e "$DEST" ]; then
-        mv "$DEST" "$DEST.backup"
+    if [ ! -e "$src" ]; then
+        echo "err: missing source $src"
+        exit 1
     fi
 
-    mkdir -p "$(dirname "$DEST")" # create destination
+    if [ -L "$dest" ] && [ "$(realpath "$dest")" = "$(realpath "$src")" ]; then
+        echo "Already linked $dest"
+        return
+    fi
 
-    ln -s "$SRC" "$DEST"
-    echo "Symlinked $file"
+    if [ -e "$dest" ] || [ -L "$dest" ]; then
+        backup="$dest.backup.$(date +%Y%m%d%H%M%S)"
+        mv "$dest" "$backup"
+        echo "Backed up $dest to $backup"
+    fi
+
+    mkdir -p "$(dirname "$dest")"
+    ln -s "$src" "$dest"
+    echo "Linked $dest -> $src"
+}
+
+for target in "${LINK_TARGETS[@]}"; do
+    src="${target%%:*}"
+    dest="${target#*:}"
+
+    link_file "$DOTFILES_DIR/$src" "$HOME/$dest"
 done
