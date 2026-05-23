@@ -121,3 +121,12 @@ for target in "${LINK_TARGETS[@]}"; do
 
     link_file "$DOTFILES_DIR/$src" "$HOME/$dest"
 done
+
+if command -v security >/dev/null 2>&1; then
+    for service in himalaya-icloud-imap himalaya-icloud-smtp; do
+        if ! security find-generic-password -a icloud -s "$service" -w >/dev/null 2>&1; then
+            echo "warn: missing Keychain password for $service"
+            echo "      Add it with: security add-generic-password -a icloud -s $service -w"
+        fi
+    done
+fi
