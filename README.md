@@ -4,6 +4,8 @@ Personal dotfiles for Unix-like systems.
 
 ## Setup
 
+### Full Setup
+
 Clone the repo into `~/dotfiles` and run the setup script:
 
 ```sh
@@ -14,9 +16,19 @@ cd ~/dotfiles
 
 The script checks for required tools, initializes submodules, installs zsh theme/plugin dependencies, and links tracked dotfiles into `$HOME`.
 
+### Minimal Shell Setup
+
+To set up just the shell environment (Zsh configurations and SSH config) without Neovim, Tmux, or Himalaya, run:
+
+```sh
+git clone --recurse-submodules git@github.com:adambarla/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./setup_shell.sh
+```
+
 ## Required Tools
 
-The setup script expects these commands to be available:
+For the full setup (`setup.sh`), these commands are expected to be available:
 
 ```text
 git
@@ -34,9 +46,11 @@ brew install git neovim tmux himalaya ripgrep
 
 On Linux, install the equivalent packages with your system package manager. Package names vary, but `neovim`, `tmux`, `git`, and `ripgrep` are common. Install Himalaya from your distro package manager if available, or from the upstream project.
 
+For the minimal setup (`setup_shell.sh`), only `git` is required.
+
 ## Linked Paths
 
-`setup.sh` links these paths from `~/dotfiles` into `$HOME`:
+`setup.sh` links these paths from `~/dotfiles` into `$HOME` (and `setup_shell.sh` links a subset of these related to the shell and SSH):
 
 ```text
 .config
@@ -44,6 +58,7 @@ On Linux, install the equivalent packages with your system package manager. Pack
 .git-templates
 .ideavimrc
 .oh-my-zsh
+.ssh/config
 .tmux.conf
 .vimrc
 .zprofile
