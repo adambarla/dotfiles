@@ -8,52 +8,23 @@ if [ ! -d "$DOTFILES_DIR" ]; then
     exit 1
 fi
 
-REQUIRED_TOOLS=(
-    git
-    nvim
-    tmux
-    himalaya
-    rg
-)
-
-missing_tools=()
-missing_formulas=()
-
-brew_formula() {
-    case "$1" in
-        nvim) echo "neovim" ;;
-        rg) echo "ripgrep" ;;
-        *) echo "$1" ;;
-    esac
-}
-
-for tool in "${REQUIRED_TOOLS[@]}"; do
-    if ! command -v "$tool" >/dev/null 2>&1; then
-        missing_tools+=("$tool")
-        missing_formulas+=("$(brew_formula "$tool")")
-    fi
-done
-
-if [ "${#missing_tools[@]}" -gt 0 ]; then
-    echo "Missing tools: ${missing_tools[*]}"
-    echo "Install them, then rerun setup.sh."
-    if command -v brew >/dev/null 2>&1; then
-        echo "Homebrew suggestion: brew install ${missing_formulas[*]}"
-    fi
+# We only need git to manage/download plugins
+if ! command -v git >/dev/null 2>&1; then
+    echo "err: git is required to set up the shell plugins"
     exit 1
 fi
 
+# Initialize/update submodule if .oh-my-zsh is tracked as a submodule
 git -C "$DOTFILES_DIR" submodule update --init --recursive
 
 ZSH="$DOTFILES_DIR/.oh-my-zsh"
 
 if [ ! -d "$ZSH/plugins" ]; then
-    echo "err: $ZSH/plugins does not exist"
+    echo "err: $ZSH/plugins does not exist. Ensure .oh-my-zsh is initialized."
     exit 1
 fi
 
-# Install external plugins and themes
-echo "Installing external plugins and themes..."
+echo "Installing external plugins and themes for Zsh..."
 
 # powerlevel10k theme
 if [ ! -d "$ZSH/custom/themes/powerlevel10k" ]; then
@@ -79,26 +50,19 @@ if [ ! -d "$ZSH/custom/plugins/zsh-vi-mode" ]; then
     git clone https://github.com/jeffreytse/zsh-vi-mode.git "$ZSH/custom/plugins/zsh-vi-mode"
 fi
 
+# zsh-autosuggestions plugin
 if [ ! -d "$ZSH/custom/plugins/zsh-autosuggestions" ]; then
     echo "Installing zsh-autosuggestions plugin..."
     git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH/custom/plugins/zsh-autosuggestions"
 fi
 
 LINK_TARGETS=(
-    ".config:.config"
-    ".gitconfig:.gitconfig"
-    "git-templates:.git-templates"
-    ".ideavimrc:.ideavimrc"
     ".oh-my-zsh:.oh-my-zsh"
-    ".tmux.conf:.tmux.conf"
-    ".vimrc:.vimrc"
     ".zprofile:.zprofile"
     ".zshenv:.zshenv"
     ".zshrc:.zshrc"
     ".ssh/config:.ssh/config"
 )
-
-git -C "$DOTFILES_DIR" config --local status.showUntrackedFiles no
 
 link_file() {
     local src="$1"
@@ -133,11 +97,4 @@ for target in "${LINK_TARGETS[@]}"; do
     link_file "$DOTFILES_DIR/$src" "$HOME/$dest"
 done
 
-if [ "$(uname -s)" = "Darwin" ] && command -v security >/dev/null 2>&1; then
-    for service in himalaya-icloud-imap himalaya-icloud-smtp; do
-        if ! security find-generic-password -a icloud -s "$service" -w >/dev/null 2>&1; then
-            echo "warn: missing Keychain password for $service"
-            echo "      Add it with: security add-generic-password -a icloud -s $service -w"
-        fi
-    done
-fi
+echo "Shell setup complete!"
