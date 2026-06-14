@@ -26,6 +26,24 @@ cd ~/dotfiles
 ./setup_shell.sh
 ```
 
+### Reverting Changes
+
+To unlink the dotfiles and restore a specific backup of your original configurations, run `./revert.sh` with the backup timestamp as an argument (e.g., `20260614143728`). 
+
+Alternatively, you can automatically restore the most recent backup by passing the `--recent` flag:
+
+```sh
+cd ~/dotfiles
+./revert.sh --recent
+```
+
+If you run the script without arguments, it will show the usage syntax and list all available backup timestamps:
+
+```sh
+cd ~/dotfiles
+./revert.sh <backup-timestamp> | --recent
+```
+
 ## Required Tools
 
 For the full setup (`setup.sh`), these commands are expected to be available:
